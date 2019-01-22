@@ -46,11 +46,14 @@ looker.plugins.visualizations.add({
     // Insert a <style> tag with some styles we'll use later.
     element.innerHTML = `
       <style>
+        html {
+          background-color: #f5f5f5;
+        }
+
         .heat-map {
           height: 100%;
           width: 100%;
-          background-color: #f5f5f5;
-          font-family: Open Sans,Helvetica,Arial,sans-serif;
+          font-family: sans-serif;
         }
         
         .row {
@@ -73,6 +76,7 @@ looker.plugins.visualizations.add({
           justify-content: center;
           text-align: center;
           align-items: flex-end;
+          padding: 0 1px;
         }
         
         .cell-box {
@@ -92,6 +96,10 @@ looker.plugins.visualizations.add({
         
         .cell-box.high {
           background-color: #f1f0f6;
+        }
+
+        .cell-box.none {
+          background-color: #fff;
         }
       </style>
     `;
