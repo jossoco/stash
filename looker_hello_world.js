@@ -48,29 +48,34 @@ looker.plugins.visualizations.add({
     // Insert a <style> tag with some styles we'll use later.
     element.innerHTML = `
       <style>
-        .hello-world-vis {
-          /* Vertical centering */
+        * {
+          color: #000;
+        }
+        
+        .row {
+          width: 100%;
+          height: 100px;
+          display: flex;
+        }
+        
+        .cell {
+          width: 150px;
           height: 100%;
           display: flex;
-          flex-direction: column;
+        }
+        
+        .col-header {
           justify-content: center;
-          text-align: center;
-        }
-        .hello-world-text-large {
-          font-size: 72px;
-        }
-        .hello-world-text-small {
-          font-size: 18px;
         }
       </style>
     `;
 
     // Create a container element to let us center the text.
     var container = element.appendChild(document.createElement("div"));
-    container.className = "hello-world-vis";
+    container.className = "heat-map";
 
-    // Create an element to contain the text.
-    this._textElement = container.appendChild(document.createElement("div"));
+    // Create an element to contain the chart.    
+    this._inner = container.appendChild(document.createElement("div"));
 
   },
   // Render in response to the data or settings changing
@@ -88,13 +93,11 @@ looker.plugins.visualizations.add({
 
       dataByXAndY[xKey] = yData;
     });
-    console.log(dataByXAndY);
 
     // First let's find all the columns
     var cols = _.uniq(_.map(data, function(d) {
       return d[config.y_field].value;
     }));
-    console.log(cols);
 
     // Create table data
     var rows = {};
@@ -106,7 +109,7 @@ looker.plugins.visualizations.add({
           var percent = firstRecord ? firstRecord[config.percent_data].value : 0;
           rows[key][col] = percent;
         } else {
-          data[col] = 0;
+          data[key][col] = 0;
         }
       });
     });
@@ -122,19 +125,23 @@ looker.plugins.visualizations.add({
       return;
     }
 
-    // Grab the first cell of the data
-    var firstRow = data[0];
-    var firstCell = firstRow[queryResponse.fields.dimensions[0].name];
+    // Header row
+    var headerRow = this._inner.appendChild(document.createElement("div"));
+    headerRow.className = "row";
 
-    // Insert the data into the page
-    this._textElement.innerHTML = LookerCharts.Utils.htmlForCell(firstCell);
+    var xLabelCell = headerRow.appendChild(document.createElement("div"));
+    var xLabel = document.createTextNode(config.x_label);   
+    xLabelCell.appendChild(xLabel);
+    xLabelCell.className = "cell";
 
-    // Set the size to the user-selected size
-    if (config.font_size == "small") {
-      this._textElement.className = "hello-world-text-small";
-    } else {
-      this._textElement.className = "hello-world-text-large";
-    }
+    // Column headers
+    _.forEach(cols, function(col) {
+      var cell = headerRow.appendChild(document.createElement("div"));
+      var label = document.createTextNode(col);
+      cell.appendChild(label);
+      cell.className = "cell col-header";
+    });
+
 
     // We are done rendering! Let Looker know.
     done()
