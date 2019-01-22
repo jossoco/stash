@@ -52,18 +52,42 @@ looker.plugins.visualizations.add({
         
         .row {
           width: 100%;
-          height: 100px;
+          height: 65px;
           display: flex;
+          margin: 10px 0;
         }
         
         .cell {
-          width: 150px;
+          width: 120px;
+          min-width: 100px;
           height: 100%;
           display: flex;
+          align-items: flex-end;
+          margin: 0 5px;
         }
         
         .col-header {
           justify-content: center;
+          text-align: center;
+        }
+        
+        .cell-box {
+          border-width: 1px;
+          border-style: solid;
+          border-color: #aaa;
+        }
+        
+        .cell-box.low {
+          background-color: #555;
+        }
+        
+        .cell-box.med {
+          background-color: #9c9bc5;
+          border-color: #ddd;
+        }
+        
+        .cell-box.high {
+          background-color: #f1f0f6;
         }
       </style>
     `;
@@ -88,7 +112,6 @@ looker.plugins.visualizations.add({
       var yData = _.groupBy(xData, function(x) {
         return x[config.y_field].value;
       });
-
       dataByXAndY[xKey] = yData;
     });
 
@@ -134,7 +157,7 @@ looker.plugins.visualizations.add({
       var cell = headerRow.appendChild(document.createElement("div"));
       var label = document.createTextNode(col);
       cell.appendChild(label);
-      cell.className = "cell cell-inner";
+      cell.className = "cell col-header";
     });
     
     // Rows
@@ -148,13 +171,18 @@ looker.plugins.visualizations.add({
       rowName.className = "cell row-label";
       
       _.forEach(cols, function(col) {
-        var cellData = rowData[col];
-        console.log(cellData);
+        var cellData = rowData[col];        
+        var cellClass = "none";
+        if (cellData >= 75) {
+          cellClass = "high";
+        } else if (cellData < 75 && cellData >= 50) {
+          cellClass = "med";
+        } else if (cellData < 50 && cellData > 0) {
+          cellClass = "low";
+        }
         
         var cell = row.appendChild(document.createElement("div"));
-        var cellLabel = document.createTextNode(cellData);
-        cell.appendChild(cellLabel);
-        cell.className = "cell cell-inner";
+        cell.className = "cell cell-box " + cellClass;
       });
     });
 
