@@ -119,14 +119,10 @@ looker.plugins.visualizations.add({
     // Clear any errors from previous updates
     this.clearErrors();
 
-    // Throw some errors and exit if the shape of the data isn't what this chart needs
-    if (queryResponse.fields.dimensions.length == 0) {
-      this.addError({title: "No Dimensions", message: "This chart requires dimensions."});
-      return;
-    }
-
+    var inner = this._inner;
+    
     // Header row
-    var headerRow = this._inner.appendChild(document.createElement("div"));
+    var headerRow = inner.appendChild(document.createElement("div"));
     headerRow.className = "row";
 
     var xLabelCell = headerRow.appendChild(document.createElement("div"));
@@ -135,11 +131,32 @@ looker.plugins.visualizations.add({
     xLabelCell.className = "cell";
 
     // Column headers
-    _.forEach(cols, function(col) {
+    _.forEach(data.cols, function(col) {
       var cell = headerRow.appendChild(document.createElement("div"));
       var label = document.createTextNode(col);
       cell.appendChild(label);
-      cell.className = "cell col-header";
+      cell.className = "cell cell-inner";
+    });
+    
+    // Rows
+    _.forEach(data, function(rowData, key) {
+      var row = inner.appendChild(document.createElement("div"));
+      row.className = "row";
+      
+      var rowName = row.appendChild(document.createElement("div"));
+      var rowLabel = document.createTextNode(key);
+      rowName.appendChild(rowLabel);
+      rowName.className = "cell row-label";
+      
+      _.forEach(cols, function(col) {
+        var cellData = rowData[col];
+        console.log(cellData);
+        
+        var cell = row.appendChild(document.createElement("div"));
+        var cellLabel = document.createTextNode(cellData);
+        cell.appendChild(cellLabel);
+        cell.className = "cell cell-inner";
+      });
     });
 
 
