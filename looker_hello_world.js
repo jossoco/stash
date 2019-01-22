@@ -44,6 +44,7 @@
             font-family: 'Open Sans', sans-serif;
             padding: 10px;
             color: #676767;
+            font-size: 15px;
           }
           
           .row {
