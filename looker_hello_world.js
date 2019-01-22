@@ -98,7 +98,9 @@ looker.plugins.visualizations.add({
 
     // Create table data
     var rows = _.map(dataByXAndY, function(data, key) {
-      return;
+      _.forEach(cols, function(col) {
+        console.log(data[col]);
+      });
     });
 
 
