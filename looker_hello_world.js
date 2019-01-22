@@ -80,18 +80,26 @@ looker.plugins.visualizations.add({
       return x[config.x_field].value;
     });
 
-    var dataByXAndY = _.map(dataByX, function(xData, xKey) {
-      var yData = _.groupBy(xData, function(y) {
-        return y[config.y_field].value;
+    var dataByXAndY = {};
+    _.forEach(dataByX, function(xData, xKey) {
+      var yData = _.groupBy(xData, function(x) {
+        return x[config.y_field].value;
       });
-      
-      var ret = {};
-      ret[xKey] = yData;
-      return ret;
+
+      dataByXAndY[xKey] = yData;
     });
+    console.log(dataByXAndY);
 
     // First let's find all the columns
+    var cols = _.uniq(_.map(data, function(d) {
+      return d[config.y_field].value;
+    }));
+    console.log(cols);
 
+    // Create table data
+    var rows = _.map(dataByXAndY, function(data, key) {
+      return;
+    });
 
 
     // Clear any errors from previous updates
