@@ -14,6 +14,31 @@ looker.plugins.visualizations.add({
       ],
       display: "radio",
       default: "large"
+    },
+    x_field: {
+      type: "string",
+      label: "X-axis data field",
+      default: "dim_group.name"
+    },
+    x_label: {
+      type: "string",
+      label: "Label for the X axis",
+      default: "Section"
+    },
+    y_field: {
+      type: "string",
+      label: "Y-axis data field",
+      default: "cds_summary_curr_cardstack.unit_title"
+    },
+    y_label: {
+      type: "string",
+      label: "Label for the Y axis",
+      default: ""
+    },
+    percent_data: {
+      type: "string",
+      label: "Data point to use for heat map percentage",
+      default: "percentage_students_handed_in"
     }
   },
   // Set up the initial state of the visualization
@@ -50,17 +75,24 @@ looker.plugins.visualizations.add({
   },
   // Render in response to the data or settings changing
   updateAsync: function(data, element, config, queryResponse, details, done) {
-    console.log(data);
-    var dataBySection = _.groupBy(data, function(x) {
-      return x['dim_group.name'].value;
+
+    var dataByX = _.groupBy(data, function(x) {
+      return x[config.x_field].value;
     });
-    console.log(dataBySection);
-    var dataBySectionAndUnit = _.map(dataBySection, function(section) {
-      return _.groupBy(section, function(x) {
-        return x['cds_summary_curr_cardstack.unit_title'].value;
+
+    var dataByXAndY = _.map(dataBySection, function(xData, xKey) {
+      var yData = _.groupBy(xData, function(x) {
+        return x[config.y_field].value;
       });
+      
+      var ret = {};
+      ret[xKey] = yData;
+      return ret;
     });
-    console.log(dataBySectionAndUnit);
+
+    // First let's find all the columns
+
+
 
     // Clear any errors from previous updates
     this.clearErrors();
