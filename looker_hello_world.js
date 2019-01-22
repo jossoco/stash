@@ -2,19 +2,9 @@ looker.plugins.visualizations.add({
   // Id and Label are legacy properties that no longer have any function besides documenting
   // what the visualization used to have. The properties are now set via the manifest
   // form within the admin/visualizations page of Looker
-  id: "hello_world",
-  label: "Hello World",
+  id: "heat_map_jgraham",
+  label: "Heat Map (jgraham)",
   options: {
-    font_size: {
-      type: "string",
-      label: "Font Size",
-      values: [
-        {"Large": "large"},
-        {"Small": "small"}
-      ],
-      display: "radio",
-      default: "large"
-    },
     x_field: {
       type: "string",
       label: "X-axis data field",
@@ -46,14 +36,11 @@ looker.plugins.visualizations.add({
     // Insert a <style> tag with some styles we'll use later.
     element.innerHTML = `
       <style>
-        html {
-          background-color: #f5f5f5;
-        }
-
         .heat-map {
           height: 100%;
           width: 100%;
-          font-family: sans-serif;
+          background-color: #f5f5f5;
+          font-family: 'Lato', sans-serif;
         }
         
         .row {
@@ -76,28 +63,29 @@ looker.plugins.visualizations.add({
           justify-content: center;
           text-align: center;
           align-items: flex-end;
-          padding: 0 1px;
         }
         
         .cell-box {
-          border-width: 1px;
-          border-style: solid;
           border-color: #aaa;
+          border-radius: 3px;
+          box-shadow: inset 0 0 2px var(--box-shadow-color), inset 0 0 2px var(--box-shadow-color);
+          --box-shadow-color: #333;
         }
         
         .cell-box.low {
           background-color: #555;
+          --box-shadow-color: #ddd;
         }
         
         .cell-box.med {
           background-color: #9c9bc5;
-          border-color: #ddd;
+          --box-shadow-color: #ddd;
         }
         
         .cell-box.high {
           background-color: #f1f0f6;
         }
-
+        
         .cell-box.none {
           background-color: #fff;
         }
