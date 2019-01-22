@@ -97,11 +97,16 @@ looker.plugins.visualizations.add({
     console.log(cols);
 
     // Create table data
-    var rows = _.map(dataByXAndY, function(data, key) {
-      _.forEach(cols, function(col) {
-        console.log(data[col]);
+    var rows = {};
+    _.forEach(dataByXAndY, function(data, key) {
+      rows[key] = {};
+      var cells = _.forEach(cols, function(col) {
+        var firstRecord = data[col][0];
+        var percent = firstRecord ? firstRecord[config.percent_data] : 0;
+        rows[key][col] = percent;
       });
     });
+    console.log(rows);
 
 
     // Clear any errors from previous updates
