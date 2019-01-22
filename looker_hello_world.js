@@ -50,7 +50,7 @@ looker.plugins.visualizations.add({
           height: 100%;
           width: 100%;
           background-color: #f5f5f5;
-          font-family: 'Lato', sans-serif;
+          font-family: Open Sans,Helvetica,Arial,sans-serif;
         }
         
         .row {
