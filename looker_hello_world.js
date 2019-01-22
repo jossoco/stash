@@ -46,29 +46,33 @@ looker.plugins.visualizations.add({
     // Insert a <style> tag with some styles we'll use later.
     element.innerHTML = `
       <style>
-        * {
-          color: #000;
+        .heat-map {
+          height: 100%;
+          width: 100%;
+          background-color: #f5f5f5;
+          font-family: 'Lato', sans-serif;
         }
         
         .row {
           width: 100%;
           height: 65px;
           display: flex;
-          margin: 10px 0;
+          margin: 20px 0;
         }
         
         .cell {
           width: 120px;
-          min-width: 100px;
+          min-width: 120px;
           height: 100%;
-          display: flex;
-          align-items: flex-end;
-          margin: 0 5px;
+          display: flex;  
+          margin: 0 16px;
+          overflow: hidden;
         }
         
         .col-header {
           justify-content: center;
           text-align: center;
+          align-items: flex-end;
         }
         
         .cell-box {
