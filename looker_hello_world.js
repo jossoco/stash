@@ -51,9 +51,13 @@ looker.plugins.visualizations.add({
   // Render in response to the data or settings changing
   updateAsync: function(data, element, config, queryResponse, details, done) {
     console.log(data);
-    var dataBySection = _.groupBy(data, 'dim_group.name.value');
+    var dataBySection = _.groupBy(data, function(x) {
+      return x['dim_group.name'].value;
+    });
     console.log(dataBySection);
-    var dataBySectionAndUnit = _.groupBy(dataBySection, 'cds_summary_curr_cardstack.unit_title.value');
+    var dataBySectionAndUnit = _.groupBy(dataBySection, function(x) {
+      return x['cds_summary_curr_cardstack.unit_title'].value;
+    });
     console.log(dataBySectionAndUnit);
 
     // Clear any errors from previous updates
