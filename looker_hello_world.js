@@ -80,9 +80,9 @@ looker.plugins.visualizations.add({
       return x[config.x_field].value;
     });
 
-    var dataByXAndY = _.map(dataBySection, function(xData, xKey) {
-      var yData = _.groupBy(xData, function(x) {
-        return x[config.y_field].value;
+    var dataByXAndY = _.map(dataByX, function(xData, xKey) {
+      var yData = _.groupBy(xData, function(y) {
+        return y[config.y_field].value;
       });
       
       var ret = {};
