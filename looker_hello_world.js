@@ -120,6 +120,7 @@ looker.plugins.visualizations.add({
     this.clearErrors();
 
     var inner = this._inner;
+    inner.innerHTML = "";
     
     // Header row
     var headerRow = inner.appendChild(document.createElement("div"));
