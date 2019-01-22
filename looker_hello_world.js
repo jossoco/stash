@@ -100,9 +100,9 @@ looker.plugins.visualizations.add({
     var rows = {};
     _.forEach(dataByXAndY, function(data, key) {
       rows[key] = {};
-      var cells = _.forEach(cols, function(col) {
-        var firstRecord = data[col][0];
-        var percent = firstRecord ? firstRecord[config.percent_data] : 0;
+       _.forEach(cols, function(col) {
+        var firstRecord = _.values(data)[0][0];
+        var percent = firstRecord ? firstRecord[config.percent_data].value : 0;
         rows[key][col] = percent;
       });
     });
