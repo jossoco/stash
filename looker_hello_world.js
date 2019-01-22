@@ -43,6 +43,7 @@
           .heat-map {
             font-family: 'Lato', sans-serif;
             padding: 10px;
+            color: #676767;
           }
           
           .row {
@@ -65,6 +66,12 @@
             justify-content: center;
             text-align: center;
             align-items: flex-end;
+            font-weight: bold;
+          }
+
+          .x-label {
+            text-transform: uppercase;
+            alignt-items: flex-end;
           }
           
           .cell-box {
@@ -155,7 +162,7 @@
       var xLabelCell = headerRow.appendChild(document.createElement("div"));
       var xLabel = document.createTextNode(config.x_label);   
       xLabelCell.appendChild(xLabel);
-      xLabelCell.className = "cell";
+      xLabelCell.className = "cell x-label";
 
       // Column headers
       _.forEach(cols, function(col) {
