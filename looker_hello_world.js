@@ -109,7 +109,7 @@ looker.plugins.visualizations.add({
           var percent = firstRecord ? firstRecord[config.percent_data].value : 0;
           rows[key][col] = percent;
         } else {
-          data[key][col] = 0;
+          rows[key][col] = 0;
         }
       });
     });
