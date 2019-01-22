@@ -96,6 +96,7 @@
 
       var fontLink = document.createElement("link");
       fontLink.href = "https://fonts.googleapis.com/css?family=Lato";
+      fontLink.rel = "stylesheet";
       document.getElementsByTagName('head')[0].appendChild(fontLink);
 
       // Create a container element to let us center the text.
