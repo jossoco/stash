@@ -51,8 +51,10 @@ looker.plugins.visualizations.add({
   // Render in response to the data or settings changing
   updateAsync: function(data, element, config, queryResponse, details, done) {
     console.log(data);
-    console.log(queryResponse);
-    console.log(details);
+    var dataBySection = _.groupBy(data, 'dim_group.name');
+    console.log(dataBySection);
+    var dataBySectionAndUnit = _.groupBy(dataBySection, 'cds_summary_curr_cardstack.unit_title');
+    console.log(dataBySectionAndUnit);
 
     // Clear any errors from previous updates
     this.clearErrors();
