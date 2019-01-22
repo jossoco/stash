@@ -43,8 +43,6 @@ looker.plugins.visualizations.add({
   },
   // Set up the initial state of the visualization
   create: function(element, config) {
-    console.log(element);
-
     // Insert a <style> tag with some styles we'll use later.
     element.innerHTML = `
       <style>
@@ -71,6 +69,7 @@ looker.plugins.visualizations.add({
     `;
 
     // Create a container element to let us center the text.
+    element.innerHTML = "";
     var container = element.appendChild(document.createElement("div"));
     container.className = "heat-map";
 
@@ -120,7 +119,6 @@ looker.plugins.visualizations.add({
     this.clearErrors();
 
     var inner = this._inner;
-    inner.innerHTML = "";
     
     // Header row
     var headerRow = inner.appendChild(document.createElement("div"));
@@ -150,9 +148,7 @@ looker.plugins.visualizations.add({
       rowName.className = "cell row-label";
       
       _.forEach(cols, function(col) {
-        var cellData = rowData[col];
-        console.log(cellData);
-        
+        var cellData = rowData[col];        
         var cell = row.appendChild(document.createElement("div"));
         var cellLabel = document.createTextNode(cellData);
         cell.appendChild(cellLabel);
