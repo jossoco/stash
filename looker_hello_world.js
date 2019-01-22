@@ -55,8 +55,10 @@ looker.plugins.visualizations.add({
       return x['dim_group.name'].value;
     });
     console.log(dataBySection);
-    var dataBySectionAndUnit = _.groupBy(dataBySection, function(x) {
-      return x['cds_summary_curr_cardstack.unit_title'].value;
+    var dataBySectionAndUnit = _.map(dataBySection, function(section) {
+      return _.groupBy(section, function(x) {
+        return x['cds_summary_curr_cardstack.unit_title'].value;
+      });
     });
     console.log(dataBySectionAndUnit);
 
