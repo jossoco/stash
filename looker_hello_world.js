@@ -41,7 +41,7 @@
           }
 
           .heat-map {
-            font-family: 'Lato', sans-serif;
+            font-family: 'Open Sans', sans-serif;
             padding: 10px;
             color: #676767;
           }
@@ -103,7 +103,7 @@
       `;
 
       var fontLink = document.createElement("link");
-      fontLink.href = "https://fonts.googleapis.com/css?family=Lato";
+      fontLink.href = "https://fonts.googleapis.com/css?family=Open+Sans";
       fontLink.rel = "stylesheet";
       document.getElementsByTagName('head')[0].appendChild(fontLink);
 
