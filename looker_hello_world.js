@@ -71,7 +71,8 @@
 
           .x-label {
             text-transform: uppercase;
-            alignt-items: flex-end;
+            align-items: flex-end;
+            font-weight: bold;
           }
           
           .cell-box {
