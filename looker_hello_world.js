@@ -94,12 +94,12 @@ looker.plugins.visualizations.add({
       dataByXAndY[xKey] = yData;
     });
 
-    // First let's find all the columns
+    // First make column headers
     var cols = _.uniq(_.map(data, function(d) {
       return d[config.y_field].value;
     }));
 
-    // Create table data
+    // Make rows of data
     var rows = {};
     _.forEach(dataByXAndY, function(data, key) {
       rows[key] = {};
@@ -131,7 +131,7 @@ looker.plugins.visualizations.add({
     xLabelCell.className = "cell";
 
     // Column headers
-    _.forEach(data.cols, function(col) {
+    _.forEach(cols, function(col) {
       var cell = headerRow.appendChild(document.createElement("div"));
       var label = document.createTextNode(col);
       cell.appendChild(label);
@@ -139,7 +139,7 @@ looker.plugins.visualizations.add({
     });
     
     // Rows
-    _.forEach(data, function(rowData, key) {
+    _.forEach(rows, function(rowData, key) {
       var row = inner.appendChild(document.createElement("div"));
       row.className = "row";
       
